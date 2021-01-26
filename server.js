@@ -26,15 +26,9 @@ app.use(express.static('website'));
 const port = 8080;
 const server = app.listen(port, ()=>{console.log('server running'); console.log(`running on localhost: ${port}`);});
 
-// Setup api 
-apiKey = '&appid=b6f852ead2d0a171564cc5524ff8bba1';
-zipCode = '';
-baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-
 
 //Setup a get url and function 
 app.get('/all',(req, res)=>{
-    console.log('alo');
     res.send(projectData);
 });
 
@@ -48,7 +42,3 @@ app.post('/add',(req,res)=>{
     projectData.push(newEntry)
     console.log(projectData)
 });
-
-
-
-// Creating a fetch function
