@@ -18,7 +18,7 @@
 
 
 
-// Callback function to complete GET '/all' 
+// Callback function to complete GET '/all'                          DONE
 
 // Post Route                                                         DONE
   

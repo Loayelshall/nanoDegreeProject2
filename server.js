@@ -34,6 +34,7 @@ baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 
 //Setup a get url and function 
 app.get('/all',(req, res)=>{
+    console.log('alo');
     res.send(projectData);
 });
 
