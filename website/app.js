@@ -1,6 +1,6 @@
 
 /* Global Variables */
-const apiKey = '&appid=b6f852ead2d0a171564cc5524ff8bba1';
+const apiKey = '&appid=API_KEY&units=metric';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -13,14 +13,18 @@ const buttonPressed = async ()=>{
     const weather = await fetchWeather(apiKey)
     try{
           //Getting user input
+            const feelings = document.getElementById('feelings').value
+            if(feelings === ''){
+                return alert('Please enter today`s feelings!')
+            }
             let userInput = {
                 'temperature': weather.main.temp,
                 'date': newDate,
-                'feelings': document.getElementById('feelings').value,
+                'feelings': feelings,
             }
             const urlAdd = "/add"
             const urlGet = "/all"
-            
+
             postData(urlAdd,userInput)
             .then(updateUI(urlGet))
         
@@ -54,6 +58,12 @@ const fetchWeather = async (API_key)=>{
     baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
     const fullUrl = baseUrl + zipCode + API_key
 
+
+    // Validating user input
+    if(zipCode === ''){
+        return alert('Please enter a zip code.')
+    }
+
     //Posting data to server.js
     const res = await fetch(fullUrl,{
         method: 'GET',
@@ -65,6 +75,7 @@ const fetchWeather = async (API_key)=>{
             return weather;
         } else {
             console.log('error');
+            return alert('Zip Code is invalid')
         }
     } catch (error) {
         console.log('error',error);
@@ -77,9 +88,9 @@ const updateUI = async (url)=>{
     const req = await fetch(url);
     try{
         const allData = await req.json()
-        document.getElementById('date').innerHTML = allData[allData.length-1].date;
-        document.getElementById('temp').innerHTML = allData[allData.length-1].temperature;
-        document.getElementById('content').innerHTML = allData[allData.length-1].feelings;
+        document.getElementById('date').innerHTML = allData.date;
+        document.getElementById('temp').innerHTML = allData.temperature;
+        document.getElementById('content').innerHTML = allData.feelings;
     } catch(error){
         console.log('error',error);
     }
